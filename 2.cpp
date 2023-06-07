@@ -1,53 +1,58 @@
-#include<iostream>
+#include<bits/stdc++.h>
+#pragma GCC optimize(2)
 using namespace std;
-int st[100000];
+int st[100010];
+int nxt[100010];
+int a[100010];
 int h=1;
-void push(int a){
+
+inline void push(int a){
     st[h]=a;
     h++;
 }
-int pop(){
+inline int popfront(){
     int cnt=st[h-1];
     h--;
     return cnt;
 }
-int front(){
+inline int front(){
     return st[h-1];
 }
 int main(){
-    int cnt=0;
-    char c;
-    while(1){
-        cin>>c;
-        if(c=='@'){
-            cout<<front();
-            return 0;
+    st[0]=-1;
+    int t;
+    cin>>t;
+    for(int tt=1;tt<=t;tt++){
+        memset(st,0,sizeof(st));
+        st[0]=-1;
+        int n;
+        cin>>n;
+        for(int i=n;i>=1;i--){
+            cin>>a[i];
         }
-        if(c=='+'){
-            int a=pop(),b=pop();
-            push(a+b);
-        }
-        else if(c=='-'){
-            int a=pop(),b=pop();
-            push(b-a);
-        }
-        else if(c=='*'){
-            int a=pop(),b=pop();
-            push(a*b);
-        }
-        else if(c=='/'){
-            int a=pop(),b=pop();
-            push(b/a);
-        }
-        else{
-            while(c!='.'){
-                cnt=cnt*10+(c-'0');
-                cin>>c;
+        //cout<<"test"<<endl;
+        for(int i=1;i<=n;i++){
+            if(a[i]<front()||front()==-1){
+                nxt[i]=front();
+                push(a[i]);
             }
-            push(cnt);
-            cnt=0;
+            else {
+                while(1){
+                    if(a[i]>=front()&&front()!=-1){
+                        h--;
+                    }
+                    if(a[i]<front()||front()==-1){
+                        nxt[i]=front();
+                        push(a[i]);
+                        break;
+                    }
+                    //cout<<"-";
+                }
+            }
         }
+        for(int i=n;i>=1;i--){
+            cout<<a[i]<<"-->"<<nxt[i]<<endl;
+        }
+        cout<<endl;
     }
-    cout<<endl;
-    return 0;
 }
