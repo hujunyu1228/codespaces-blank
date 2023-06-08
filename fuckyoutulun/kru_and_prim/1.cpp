@@ -14,8 +14,8 @@ int f(int x){
 }
 // int m(int x,int y){}
 int main(){
-    int n,m;
-    cin>>n>>m;
+    int n,m,k;
+    cin>>n>>m>>k;
     for(int i=1;i<=m;i++){
         int a,b,c;
         cin>>a>>b>>c;
@@ -30,16 +30,19 @@ int main(){
         int bb=f(b);
         if(aa!=bb){
             cnt++;
-            sum+=e[i].w;
+            sum=sum+e[i].w;
             fa[aa]=bb;
         }
-    }
-    int fas=f(1);
-    for(int i=1;i<=n;i++){
-        if(fas!=f(i)){
-            cout<<"orz";
-            return 0;
+        set<int>fas;
+        for(int i=1;i<=n;i++){
+            fas.insert(f(i));
         }
+        if(fas.size()==k)break;
     }
-    cout<<sum;
+    set<int>fas;
+    for(int i=1;i<=n;i++){
+        fas.insert(f(i));
+    }
+    if(fas.size()!=k)cout<<"No Answer";
+    else cout<<sum;
 }
