@@ -15,11 +15,13 @@ int f(int x){
 // int m(int x,int y){}
 int main(){
     int n,m,k;
-    cin>>n>>m>>k;
+    cin>>n>>m;
+    int sum2=0;
     for(int i=1;i<=m;i++){
         int a,b,c;
         cin>>a>>b>>c;
-        e[i]={a,b,c};
+        if(c!=0)e[i]={a,b,c};
+        sum2+=c;
     }
     for(int i=1;i<=n;i++)fa[i]=i;
     sort(e+1,e+m+1,cmp);
@@ -33,16 +35,11 @@ int main(){
             sum=sum+e[i].w;
             fa[aa]=bb;
         }
-        set<int>fas;
-        for(int i=1;i<=n;i++){
-            fas.insert(f(i));
-        }
-        if(fas.size()==k)break;
+        // set<int>fas;
+        // for(int i=1;i<=n;i++){
+        //     fas.insert(f(i));
+        // }
+        // if(fas.size()==k)break;
     }
-    set<int>fas;
-    for(int i=1;i<=n;i++){
-        fas.insert(f(i));
-    }
-    if(fas.size()!=k)cout<<"No Answer";
-    else cout<<sum;
+    cout<<sum2-sum;
 }

@@ -1,13 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
-struct node{
-    int x,y,w;
-};
-node e[300001];
-int fa[300001];
-int cmp(node x,node y){
-    return x.w<y.w;
-}
+// struct node{
+//     int x,y,w;
+// };
+// node e[300001];
+// int cmp(node x,node y){
+//     return x.w<y.w;
+// }
+int fa[2000001];
 int f(int x){
     if(x==fa[x])return x;
     return fa[x]=f(fa[x]);
@@ -20,21 +20,16 @@ int merge(int a,int b){
     }
 }
 int main(){
-    int n,m;
-    while(cin>>n>>m){
-        for(int i=1;i<=n;i++)fa[i]=i;
-        for(int i=1;i<=m;i++){
+    int n,m,k;
+    while(cin>>n>>m>>k){
+        for(int i=1;i<=n*m;i++)fa[i]=i;
+        for(int i=1;i<=k;i++){
             int a,b;
             cin>>a>>b;
             merge(a,b);
         }
-        int fas=f(1);
-        int ans=0;
-        for(int i=1;i<=n;i++){
-            if(f(i)!=fas){
-                ans++;
-            }
-        }
-        cout<<ans-1<<endl;
+        set<int>s;
+        for(int i=1;i<=n*m;i++)s.insert(f(i));
+        cout<<s.size()<<endl;
     }
 }
